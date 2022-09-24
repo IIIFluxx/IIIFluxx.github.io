@@ -1,0 +1,26 @@
+name: CICD Home Workshop # Name of the workflow
+on: # *When* we want things to happen, i.e. on a push to specified branch.
+  push:
+    branches:
+      - tt-workshop
+
+jobs: # Typically would have 1 job for build, another for test, and another for deploy.
+  build-test-and-deploy
+    runs on: ubuntu-latest # Run on Ubuntu distro.
+    steps: # Specify individual steps for this job.
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set-up Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "18.x" # Installs node.js 18 so we can build & run our JS.
+      # Run the npm build scripts that come w/ our app.
+      - run: npm ci  # Install required packages.
+      - run: npm run build # Once installed, build & test it.
+      - name: Deploy # Deploy app.
+        uses: crazy-max/ghaction-github-pages@v1
+        with:
+          target_branch: deployed-application
+          build_dir: build
+        env:
+          GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
