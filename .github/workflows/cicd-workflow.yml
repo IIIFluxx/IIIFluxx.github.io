@@ -17,6 +17,7 @@ jobs: # Typically would have 1 job for build, another for test, and another for 
       # Run the npm build scripts that come w/ our app.
       - run: npm ci  # Install required packages.
       - run: npm run build # Once installed, build & test it.
+      - run: npm test # Tests will run *before* artifacts deploy -> prod code.
       - name: Deploy # Deploy app.
         uses: crazy-max/ghaction-github-pages@v1
         with:
