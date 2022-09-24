@@ -5,7 +5,7 @@ on: # *When* we want things to happen, i.e. on a push to specified branch.
       - tt-workshop
 
 jobs: # Typically would have 1 job for build, another for test, and another for deploy.
-  build-test-and-deploy
+  build-test-and-deploy:
     runs-on: ubuntu-latest # Run on Ubuntu distro.
     steps: # Specify individual steps for this job.
       - name: Checkout
